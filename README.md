@@ -72,27 +72,24 @@ Issue cmd "ip helper-address 192.168.30.10" to the g0/0.10 subinterface on R1
 
 ![running-config](configuration-screenshots/issue1_running_config_done.PNG)
 ![pc1-dhcp-success](configuration-screenshots/issue1_dhcp_request_successful.PNG)
-[screenshot of running-config showing helper address added]
-[screenshot for pc1 now receiving a DHCP address]
 
 
 
 
+## Isue #2 - OSPF Routing Failure
 
 
+### Problem: 
 
-
-Issue #2 - OSPF Neighbor/Routing Problem
-
-Problem: 
-
-PC1 and PC2 are unable to connect to the server and R3 and R2 has no route to vlan 30 (doesn't advertise its networks but still has
+PC1 and PC2 are unable to connect to the server and R3 while R2 has no route to vlan 30 (doesn't advertise its networks but still has
 learned routes from neighbors)
 
+![initial_issue2](configuration-screenshots/pc1_ping_fail_issue2.PNG)
+![r2_no_advertise](configuration-screenshots/issue2_r2_not_advertising_initial.PNG)
 [screenshot of initial issue2]
 [screenshot of R2 not advertising]
 
-Investigation:
+### Investigation:
 
 - Issue the "sh ip ospf neighbor" cmd on R1, R2 and R3
 	- All 3 return blank so we know it is an issue with the routing
@@ -106,11 +103,12 @@ Investigation:
 	- advertise the network from R1
 	- cmd "sh running-config | section ospf" and see that the vlan 20 network is being advertised
 	-Go back to R2 and ping 192.168.20.2 (PC2)(success)
-Root Cause: 
+
+### Root Cause: 
 
 Root causes were because R2 was not advertising any of its networks and R1 was not advertising its vlan 20 network.
 
-Fix:
+### Fix:
 
 On R2: 
 - R2(config)#router ospf 1
@@ -123,32 +121,29 @@ On R1:
 -R2(config-router)#network 192.168.20.0 0.0.0.255 area 0
 -R2(config-router)#end
 
-Verification: 
+### Verification: 
 
+![r2_success](configuration-screenshots/issue2_r2_ping_pc2_success.PNG)
+![r2_success](configuration-screenshots/issue2_r2_ping_server_success.PNG)
 [screenshot of R2 ping to server and PC2 succeeding]
 [screenshot of ip routing table on R1 and R2]
 
 
 
+## Issue #3 - ACL Blocking Traffic
 
 
 
+### Problem: 
 
+PC1 is unable to access the Web Server, but PC2 is able to access the server
 
-
-
-
-
-
-
-
-Issue #3 - ACL Problem
-
-Problem: PC1 is unable to access the Web Server, but PC2 is able to access the server
+![pc1_fail_initial](configuration-screenshots/pc1_ping_server_fail_issue3.PNG)
+![pc2_success_initial](configuration-screenshots/pc2_pings_server_success_issue3_initial.PNG)
 [screenshot of initial ping failure for pc1]
 [screenshot of initial ping success for pc2]
 
-Investigation:
+### Investigation:
 - Check the connectivity using the ping cmd on R1, R2 and R3 to web server(192.168.30.10)
 	- Each is successfully able to reach the web server
 - Check the connectivity using the ping cmd from PC1 to R1(192.168.10.1) and PC2(192.168.20.2)
@@ -161,11 +156,11 @@ connect to the server
 	-Issue the cmd "sh running-config | section interface" to see where the access list is applied
 		- Applied on interface g0/1 in the outbound direction (towards R2)
 
-Root Cause: 
+### Root Cause: 
 
 ACL applied with parameters that blocked traffic from vlan 10 (PC1) to vlan 30 (web server)
 
-Fix:
+### Fix:
 
 Remove the ACL since there is no need for us to block traffic from vlan 10 or 20 to vlan 30
 
@@ -173,36 +168,28 @@ On R1:
 	-R1(config)#no access-list 101
 	-R1(config)#end
 
-Verification: 
+### Verification: 
 
+![pc1_ping_success](configuration-screenshots/pc1_ping_server_successful_issue3.PNG)
+![blank_R1_acl](configuration-screenshots/R1_acl_blank_issue3_resolved.PNG)
 [screenshot of successful pc1 ping to web server]
 [screenshot of blank R1 access-list cmd]
 
+## Issue #4 - NAT/Internet Access Failure
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-Issue #4 - Internet Connectivity Failure
-
-Problem: 
+### Problem: 
 
 Only R3 is able to reach the public server(8.8.8.8) while all other devices can't
 
+![R1_ping_fail](configuration-screenshots/issue4_r1_ping_fail.PNG)
+![PC1_ping_fail](configuration-screenshots/issue4_pc1_ping_fail.PNG)
+![R3_ping_successful](configuration-screenshots/issue4_r3_ping_success.PNG)
 [screenshot of R1 unable to ping]
 [screenshot of PC1 unable to ping]
 [screenshot of R3 successful ping]
 
-Investigation:
+### Investigation:
 
 - Since we are trying to reach the outside network, we can assume that it is a NAT issue so we start
 on R3 we check whether NAT has been configured correctly and whether an acl has been configured
@@ -225,25 +212,21 @@ on R3 we check whether NAT has been configured correctly and whether an acl has 
 - On R3, issue the cmd "sh ip nat translations" and now we have a full table showing that PC1 is actually interacting with the 
 NAT gateway.
 	
-Root Cause: 
+### Root Cause: 
 
 The root cause was from both R1 and R2 not having a default-gateway set for unknown traffic.
 
-Fix:
+### Fix:
 
 The fix was issuing the "default-information originate" cmd on R3 so that R1 and R2 would have default-routes
 
-Verification: 
+### Verification: 
 
+![R3_nat_success](configuration-screenshots/issue4_r3_nat_success.PNG)
+![R1_routing_table](configuration-screenshots/issue4_r1_dg_ip_route_success.PNG)
+![PC1_ping_success](configuration-screenshots/issue4_pc1_ping_success.PNG)
 [screenshot of R3 ip nat translations]
 [screenshot of R1 sh ip route table]
 [screenshot of PC1 pinging 8.8.8.8]
-
-## Isue #2 - OSPF Routing Failure
-
-## Issue #3 - ACL Blocking Traffic
-
-## Issue #4 - NAT/Internet Access Failure
-
 
 # Verification Commands

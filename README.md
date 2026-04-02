@@ -145,10 +145,10 @@ On R1:
 
 PC1 is unable to access the Web Server, but PC2 is able to access the server
 
-#### (Screenshot of PC1 ping failure)
+#### (Screenshot of PC1 ping failure to the web server)
 ![pc1_fail_initial](configuration-screenshots/pc1_ping_server_fail_issue3.PNG)
 
-#### (Screenshot of PC2 ping failure)
+#### (Screenshot of PC2 ping success to the web server)
 ![pc2_success_initial](configuration-screenshots/pc2_pings_server_success_issue3_initial.PNG)
 
 ### Investigation:
@@ -192,13 +192,13 @@ On R1:
 
 Only R3 is able to reach the public server(8.8.8.8) while all other devices can't
 
-#### (R1 unable to ping)
+#### (R1 unable to ping the public server)
 ![R1_ping_fail](configuration-screenshots/issue4_r1_ping_fail.PNG)
 
-#### (PC1 unable to ping)
+#### (PC1 unable to ping the public server)
 ![PC1_ping_fail](configuration-screenshots/issue4_pc1_ping_fail.PNG)
 
-#### (R3 able to ping)
+#### (R3 able to ping the public server)
 ![R3_ping_successful](configuration-screenshots/issue4_r3_ping_success.PNG)
 
 
@@ -238,7 +238,7 @@ The fix was issuing the "default-information originate" cmd on R3 so that R1 and
 #### (R3 ip nat table)
 ![R3_nat_success](configuration-screenshots/issue4_r3_nat_success.PNG)
 
-#### (R1 routing table)
+#### (R1 routing table with default gateway configured)
 ![R1_routing_table](configuration-screenshots/issue4_r1_dg_ip_route_success.PNG)
 
 #### (PC1 ping successful to public server (8.8.8.8))

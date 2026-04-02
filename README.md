@@ -246,3 +246,20 @@ The fix was issuing the "default-information originate" cmd on R3 so that R1 and
 
 
 # Verification Commands
+
+-	show ip route
+-	show ip ospf neighbor
+-	show access-lists
+-	show ip nat translations
+-	ping 8.8.8.8
+-	ping 192.168.30.10
+-	ping 192.168.10.1
+-	ping 192.168.20.1
+
+# Lessons Learned
+
+-	Learned how to isolate between Layer 2 vs Layer 3 vs NAT issues
+-	Understood the importance of ACL placement and direction
+-	Gained hands-on experience with OSPF route advertisement
+-	Identified dependency of NAT on proper routing (default routes)
+-	Developed a structured troubleshooting methodology

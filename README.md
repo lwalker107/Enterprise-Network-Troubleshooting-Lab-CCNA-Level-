@@ -88,10 +88,11 @@ Issue cmd "ip helper-address 192.168.30.10" to the g0/0.10 subinterface on R1
 PC1 and PC2 are unable to connect to the server and R3 while R2 has no route to vlan 30 (doesn't advertise its networks but still has
 learned routes from neighbors)
 
+#### (Screenshot of PC1 ping failure)
 ![initial_issue2](configuration-screenshots/pc1_ping_fail_issue2.PNG)
+
+#### (Screenshot of R2 not advertising any networks)
 ![r2_no_advertise](configuration-screenshots/issue2_r2_not_advertising_initial.PNG)
-[screenshot of initial issue2]
-[screenshot of R2 not advertising]
 
 ### Investigation:
 
@@ -121,33 +122,34 @@ On R2:
 - R2(config-router)#end
 
 On R1:
--R2(config)#router ospf 1
--R2(config-router)#network 192.168.20.0 0.0.0.255 area 0
--R2(config-router)#end
+- R2(config)#router ospf 1
+- R2(config-router)#network 192.168.20.0 0.0.0.255 area 0
+- R2(config-router)#end
 
 ### Verification: 
 
+#### (Screenshot of R2 ping success to server and PC2)
 ![r2_success_pc2](configuration-screenshots/issue2_r2_ping_pc2_success.PNG)
 ![r2_success_server](configuration-screenshots/issue2_r2_ping_server_success.PNG)
-[screenshot of R2 ping to server and PC2 succeeding]
+
+#### (Screenshot of routing tables for R1 and R2)
 ![r1_routing_table](configuration-screenshots/r1_routing_table.PNG)
 ![r2_routing_table](configuration-screenshots/r2_routing_table.PNG)
-[screenshot of ip routing table on R1 and R2]
 
 
 
 ## Issue #3 - ACL Blocking Traffic
 
 
-
 ### Problem: 
 
 PC1 is unable to access the Web Server, but PC2 is able to access the server
 
+#### (Screenshot of PC1 ping failure)
 ![pc1_fail_initial](configuration-screenshots/pc1_ping_server_fail_issue3.PNG)
+
+#### (Screenshot of PC2 ping failure)
 ![pc2_success_initial](configuration-screenshots/pc2_pings_server_success_issue3_initial.PNG)
-[screenshot of initial ping failure for pc1]
-[screenshot of initial ping success for pc2]
 
 ### Investigation:
 - Check the connectivity using the ping cmd on R1, R2 and R3 to web server(192.168.30.10)
@@ -176,10 +178,12 @@ On R1:
 
 ### Verification: 
 
+#### (PC1 ping to web server)
 ![pc1_ping_success](configuration-screenshots/pc1_ping_server_successful_issue3.PNG)
+
+#### (R1 blank access-list)
 ![blank_R1_acl](configuration-screenshots/R1_acl_blank_issue3_resolved.PNG)
-[screenshot of successful pc1 ping to web server]
-[screenshot of blank R1 access-list cmd]
+
 
 ## Issue #4 - NAT/Internet Access Failure
 
@@ -188,12 +192,15 @@ On R1:
 
 Only R3 is able to reach the public server(8.8.8.8) while all other devices can't
 
+#### (R1 unable to ping)
 ![R1_ping_fail](configuration-screenshots/issue4_r1_ping_fail.PNG)
+
+#### (PC1 unable to ping)
 ![PC1_ping_fail](configuration-screenshots/issue4_pc1_ping_fail.PNG)
+
+#### (R3 able to ping)
 ![R3_ping_successful](configuration-screenshots/issue4_r3_ping_success.PNG)
-[screenshot of R1 unable to ping]
-[screenshot of PC1 unable to ping]
-[screenshot of R3 successful ping]
+
 
 ### Investigation:
 
@@ -228,11 +235,14 @@ The fix was issuing the "default-information originate" cmd on R3 so that R1 and
 
 ### Verification: 
 
+#### (R3 ip nat table)
 ![R3_nat_success](configuration-screenshots/issue4_r3_nat_success.PNG)
+
+#### (R1 routing table)
 ![R1_routing_table](configuration-screenshots/issue4_r1_dg_ip_route_success.PNG)
+
+#### (PC1 ping successful to public server (8.8.8.8))
 ![PC1_ping_success](configuration-screenshots/issue4_pc1_ping_success.PNG)
-[screenshot of R3 ip nat translations]
-[screenshot of R1 sh ip route table]
-[screenshot of PC1 pinging 8.8.8.8]
+
 
 # Verification Commands

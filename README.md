@@ -35,12 +35,12 @@ Network Topology:
 ## Issue #1 - DHCP Failure
 
 
-Problem: 
+### Problem: 
 PC1 is unable to receive an IP address from the DHCP server, but PC2 is able to receive a DHCP IP address.
 [screenshot of initial problem]
 
 
-Investigation: 
+### Investigation: 
 
 -  Ping R1 subinterface to see if there is connectivity from PC1 and PC2
 	- PC1 fails, but PC2 works
@@ -57,17 +57,17 @@ Investigation:
 	- see that there is an ip helper-address for the g0/0.20 subinterface, but none for the 
 	g0/0.10 subinterface
 
-Root Cause: 
+### Root Cause: 
 
 The root cause of this issue was that the g0/0.10 subinterface didn't have the ip helper-address
 so that the DHCP request from PC1 could be forwarded to the DHCP server
 
-Fix:
+### Fix:
 
-Add the "ip helper-address 192.168.30.10" to the g0/0.10 subinterface
+Issue cmd "ip helper-address 192.168.30.10" to the g0/0.10 subinterface on R1
 
 
-Verification: 
+### Verification: 
 
 [screenshot of running-config showing helper address added]
 [screenshot for pc1 now receiving a DHCP address]

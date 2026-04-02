@@ -38,6 +38,7 @@ Network Topology:
 ### Problem: 
 PC1 is unable to receive an IP address from the DHCP server, but PC2 is able to receive a DHCP IP address.
 [screenshot of initial problem]
+![issue1](configuration-screenshots/troubleshooting_lab_issue1_initial.PNG)
 
 
 ### Investigation: 

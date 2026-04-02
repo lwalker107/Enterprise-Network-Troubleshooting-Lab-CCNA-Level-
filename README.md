@@ -19,3 +19,26 @@ Description:
 
 Network Topology:
 ![Topology](topology.PNG)
+
+# Technologies Used
+-  VLANs(802.1Q)
+-  Inter-VLAN Routing (Router-on-a-Stick)
+-  DHCP (with helper address)
+-  OSPF (Dynamic Routing)
+-  ACLs (Access Control Lists)
+-  NAT Overload (PAT)
+-  Static & Default Routing
+
+
+# Troubleshooting Scenarios
+
+## Issue #1 - DHCP Failure
+
+## Isue #2 - OSPF Routing Failure
+
+## Issue #3 - ACL Blocking Traffic
+
+## Issue #4 - NAT/Internet Access Failure
+
+
+# Verification Commands

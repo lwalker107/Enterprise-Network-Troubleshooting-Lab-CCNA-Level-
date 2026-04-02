@@ -71,7 +71,10 @@ Issue cmd "ip helper-address 192.168.30.10" to the g0/0.10 subinterface on R1
 
 ### Verification: 
 
+#### (Running Config)
 ![running-config](configuration-screenshots/issue1_running_config_done.PNG)
+
+#### (PC1 DHCP Request Successful)
 ![pc1-dhcp-success](configuration-screenshots/issue1_dhcp_request_successful.PNG)
 
 

@@ -70,6 +70,8 @@ Issue cmd "ip helper-address 192.168.30.10" to the g0/0.10 subinterface on R1
 
 ### Verification: 
 
+![running-config](configuration-screenshots/issue1_running_config_done.PNG)
+![pc1-dhcp-success](configuration-screenshots/issue1_dhcp_request_successful.PNG)
 [screenshot of running-config showing helper address added]
 [screenshot for pc1 now receiving a DHCP address]
 

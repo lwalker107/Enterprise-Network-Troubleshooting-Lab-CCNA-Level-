@@ -123,9 +123,11 @@ On R1:
 
 ### Verification: 
 
-![r2_success](configuration-screenshots/issue2_r2_ping_pc2_success.PNG)
-![r2_success](configuration-screenshots/issue2_r2_ping_server_success.PNG)
+![r2_success_pc2](configuration-screenshots/issue2_r2_ping_pc2_success.PNG)
+![r2_success_server](configuration-screenshots/issue2_r2_ping_server_success.PNG)
 [screenshot of R2 ping to server and PC2 succeeding]
+![r1_routing_table](configuration-screenshots/r1_routing_table.PNG)
+![r2_routing_table](configuration-screenshots/r2_routing_table.PNG)
 [screenshot of ip routing table on R1 and R2]
 
 
